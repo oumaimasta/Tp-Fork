@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Modifier un matériel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0a0f2c, #1e2a78);
+      color: #e0e0e0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+    }
+
+    h2 {
+      text-align: center;
+      color: #00ffe1;
+      text-shadow: 0 0 8px #00ffe1;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      box-shadow: inset 0 0 5px #00ffe1;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 10px #00ffe1;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #00ffe1;
+      color: #0a0f2c;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00ffe1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>✏ Modifier le matériel</h2>
+    <form id="formModifier">
+      <label>Nom du matériel</label>
+      <input type="text" id="nom" />
+
+      <label>Référence</label>
+      <input type="text" id="ref" />
+
+      <label>Prix (TND)</label>
+      <input type="number" id="prix" />
+
+      <label>Quantité</label>
+      <input type="number" id="quantite" />
+
+      <label>Fournisseur</label>
+      <input type="text" id="fournisseur" />
+
+      <label>État</label>
+      <input type="text" id="etat" />
+
+      <label>Emplacement</label>
+      <input type="text" id="emplacement" />
+
+      
+
+      <label>Description</label>
+      <textarea id="description" rows="3"></textarea>
+
+      <label>Fonctionnalité</label>
+      <textarea id="fonction" rows="3"></textarea>
+
+      <label>Utilisé</label>
+      <input type="text" id="utilise" />
+
+      <label>Projet associé</label>
+      <input type="text" id="projet" />
+
+      <label>Ajouté par</label>
+      <input type="text" id="auteur" />
+
+      <label>Image (URL)</label>
+      <input type="url" id="image" />
+      
+      <button type="submit">💾 Enregistrer les modifications</button>
+    </form>
+  </div>
+
+  <script>
+    const produit = JSON.parse(localStorage.getItem("produitDetails")) || {};
+
+    // Pré-remplir les champs
+    document.getElementById("nom").value = produit.nom || "";
+    document.getElementById("ref").value = produit.ref || "";
+    document.getElementById("prix").value = produit.prix || "";
+    document.getElementById("quantite").value = produit.quantite || "";
+    document.getElementById("fournisseur").value = produit.fournisseur || "";
+    document.getElementById("etat").value = produit.etat || "";
+    document.getElementById("emplacement").value = produit.emplacement || "";
+    document.getElementById("image").value = produit.image || "";
+    document.getElementById("description").value = produit.description || "";
+    document.getElementById("fonction").value = produit.fonction || "";
+    document.getElementById("utilise").value = produit.utilise || "";
+    document.getElementById("projet").value = produit.projet || "";
+    document.getElementById("auteur").value = produit.auteur || "";
+
+    // Enregistrer les modifications
+    document.getElementById("formModifier").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const updatedProduit = {
+        nom: document.getElementById("nom").value,
+        ref: document.getElementById("ref").value,
+        prix: document.getElementById("prix").value,
+        quantite: document.getElementById("quantite").value,
+        fournisseur: document.getElementById("fournisseur").value,
+        etat: document.getElementById("etat").value,
+        emplacement: document.getElementById("emplacement").value,
+        image: document.getElementById("image").value,
+        description: document.getElementById("description").value,
+        fonction: document.getElementById("fonction").value,
+        utilise: document.getElementById("utilise").value,
+        projet: document.getElementById("projet").value,
+        auteur: document.getElementById("auteur").value
+      };
+
+      localStorage.setItem("produitDetails", JSON.stringify(updatedProduit));
+      alert("✅ Modifications enregistrées !");
+      window.location.href = "details.html"; // redirection vers la page des détails
+    });
+  </script>
+</body>
+</html>
